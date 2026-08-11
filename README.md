@@ -82,7 +82,7 @@ Unlike a software-rendered game, FalconRT generates its graphics and controls it
 
 ## Hardware Implementation
 
-FalconRT was synthesized and deployed on an Intel DE10-Lite development board featuring the MAX 10 FPGA.
+FalconRT was synthesized and deployed on an Intel DE10-Lite development board featuring the Intel MAX 10 FPGA.
 
 The FPGA directly generates the VGA synchronization, pixel, sprite, background, and game-control logic required to produce the display output.
 
@@ -99,6 +99,33 @@ A video of FalconRT operating on the FPGA is included in the repository:
 [View FalconRT FPGA Demo](falconrt_fpga_demo.mov)
 
 The demonstration provides physical verification that the synthesized RTL executes on the target FPGA and produces real-time VGA graphics output.
+
+## FPGA Synthesis Results
+
+FalconRT was successfully synthesized in Intel Quartus Prime for the Intel MAX 10 FPGA on the DE10-Lite platform.
+
+| Resource | Utilization |
+| --- | ---: |
+| Logic Elements | 6,239 / 49,760 (13%) |
+| Registers | 260 |
+| I/O Pins | 83 / 360 (23%) |
+| Memory Bits | 0 / 1,677,312 (0%) |
+| Embedded 9-bit Multipliers | 0 / 288 (0%) |
+| PLLs | 0 / 4 (0%) |
+| UFM Blocks | 0 / 1 (0%) |
+| ADC Blocks | 0 / 2 (0%) |
+
+**Target Device:** Intel MAX 10 `10M50DAF484C6GES`  
+**Top-Level Entity:** `falconrt_top`  
+**Synthesis Status:** Successful
+
+The completed design uses approximately 13% of the FPGA's available logic elements and 23% of its available I/O pins, leaving substantial device capacity for additional gameplay logic, graphics functionality, peripherals, and future system expansion.
+
+### Quartus Compilation Report
+
+![FalconRT Quartus FPGA resource utilization](falconrt_quartus_utilization.png)
+
+The Quartus Flow Summary above provides the synthesis and FPGA resource-utilization results for the completed FalconRT implementation.
 
 ## Engineering Focus
 
@@ -118,7 +145,7 @@ FalconRT was developed to strengthen practical understanding of:
 ## Tools & Technologies
 
 - Verilog HDL
-- Intel Quartus Prime
+- Intel Quartus Prime Lite
 - Intel DE10-Lite
 - Intel MAX 10 FPGA
 - RTL design
@@ -144,6 +171,7 @@ FalconRT/
 ├── vga_controller.v
 ├── falconrt_fpga_demo.jpg
 ├── falconrt_fpga_demo.mov
+├── falconrt_quartus_utilization.png
 └── README.md
 ```
 
@@ -161,7 +189,9 @@ Hardware testing verified:
 - Game-state/control operation
 - Physical VGA output to an external display
 
-The hardware demonstration above provides end-to-end verification from synthesizable Verilog RTL to physical FPGA execution and VGA output.
+The hardware demonstration provides end-to-end verification from synthesizable Verilog RTL through FPGA synthesis and programming to physical real-time VGA output.
+
+The successful Quartus compilation additionally confirms that the design is synthesizable for the target MAX 10 FPGA and provides measurable hardware resource-utilization results.
 
 ## Future Improvements
 
@@ -181,7 +211,7 @@ Potential extensions include:
 
 This project strengthened my understanding of real-time digital graphics, hardware timing, modular RTL design, finite-state-machine control, sprite rendering, and FPGA-based system integration.
 
-It also provided hands-on experience taking a digital system from Verilog RTL through synthesis and FPGA programming to a working physical hardware demonstration.
+It also provided hands-on experience taking a digital system from Verilog RTL through synthesis, FPGA programming, resource analysis, and physical hardware verification to a working real-time VGA demonstration.
 
 ---
 
