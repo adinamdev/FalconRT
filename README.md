@@ -6,6 +6,12 @@ Unlike a software-rendered game, FalconRT generates its graphics and controls it
 
 ## Architecture
 
+![FalconRT FPGA System Architecture](Architectural%20Diagram%20FalconRT.png)
+
+The architecture diagram illustrates the major hardware subsystems of FalconRT and the flow of control and pixel data through the FPGA. User inputs and timing logic feed the game-control system, which coordinates game state, movement, sprite generation, rendering, color mapping, and VGA output.
+
+The system is organized as a modular hardware graphics pipeline:
+
 ```text
 +------------------+
 |  Clock Divider   |
@@ -88,7 +94,7 @@ The FPGA directly generates the VGA synchronization, pixel, sprite, background, 
 
 ### FPGA Hardware Demonstration
 
-![FalconRT running on the DE10-Lite FPGA](falconrt_fpga_demo.jpg)
+![FalconRT Running on Intel DE10-Lite FPGA](falconrt_fpga_demo.jpg)
 
 The image above shows the synthesized FalconRT design running on the physical DE10-Lite FPGA and driving the game display through VGA.
 
@@ -123,9 +129,27 @@ The completed design uses approximately 13% of the FPGA's available logic elemen
 
 ### Quartus Compilation Report
 
-![FalconRT Quartus FPGA resource utilization](falconrt_quartus_utilization.png)
+![FalconRT Quartus FPGA Resource Utilization](falconrt_quartus_utilization.png)
 
 The Quartus Flow Summary above provides the synthesis and FPGA resource-utilization results for the completed FalconRT implementation.
+
+## Verification
+
+The completed RTL design was synthesized using Intel Quartus Prime and programmed onto the DE10-Lite FPGA.
+
+Hardware testing verified:
+
+- Successful FPGA configuration
+- VGA synchronization and video generation
+- Background rendering
+- Player sprite rendering
+- Enemy sprite rendering
+- Game-state/control operation
+- Physical VGA output to an external display
+
+The hardware demonstration provides end-to-end verification from synthesizable Verilog RTL through FPGA synthesis and programming to physical real-time VGA output.
+
+The successful Quartus compilation additionally confirms that the design is synthesizable for the target MAX 10 FPGA and provides measurable hardware resource-utilization results.
 
 ## Engineering Focus
 
@@ -169,29 +193,12 @@ FalconRT/
 ├── seven_segment_decoder.v
 ├── sprite_renderer.v
 ├── vga_controller.v
+├── Architectural Diagram FalconRT.png
 ├── falconrt_fpga_demo.jpg
 ├── falconrt_fpga_demo.mov
 ├── falconrt_quartus_utilization.png
 └── README.md
 ```
-
-## Verification
-
-The completed RTL design was synthesized using Intel Quartus Prime and programmed onto the DE10-Lite FPGA.
-
-Hardware testing verified:
-
-- Successful FPGA configuration
-- VGA synchronization and video generation
-- Background rendering
-- Player sprite rendering
-- Enemy sprite rendering
-- Game-state/control operation
-- Physical VGA output to an external display
-
-The hardware demonstration provides end-to-end verification from synthesizable Verilog RTL through FPGA synthesis and programming to physical real-time VGA output.
-
-The successful Quartus compilation additionally confirms that the design is synthesizable for the target MAX 10 FPGA and provides measurable hardware resource-utilization results.
 
 ## Future Improvements
 
